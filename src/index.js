@@ -22,6 +22,12 @@ const OAUTH_COOKIE = "hat_oauth";
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    // One canonical address. Sign-in cookies only work on a single hostname,
+    // so www.has-a.tech (and any other alias) redirects to has-a.tech.
+    const canonical = new URL(env.SITE_URL);
+    if (url.hostname !== canonical.hostname && !url.hostname.endsWith(".workers.dev") && url.hostname !== "localhost") {
+      return Response.redirect(`${canonical.origin}${url.pathname}${url.search}`, 301);
+    }
     if (!url.pathname.startsWith("/api/")) return env.ASSETS.fetch(request);
     try {
       return await route(request, env, url);
@@ -185,8 +191,8 @@ async function start(request, env) {
   const ipHash = await hmac(env.HMAC_SECRET, `ip:${ip}`); // never store raw IP addresses
   const emailHash = await hmac(env.HMAC_SECRET, `email:${email}`);
   if (!(await rateLimit(env, `ip:${ipHash}`, 10)) ||
-      !(await rateLimit(env, `start:${login}`, 3)) ||
-      !(await rateLimit(env, `mail:${emailHash}`, 3))) {
+    !(await rateLimit(env, `start:${login}`, 3)) ||
+    !(await rateLimit(env, `mail:${emailHash}`, 3))) {
     return error("Too many codes requested. Wait an hour, then try again.", 429);
   }
 

@@ -6,20 +6,25 @@
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",
-    "not_found_handling": "404-page"
+    "not_found_handling": "404-page",
+    "run_worker_first": true
   },
   "routes": [
-    { "pattern": "has-a.tech", "custom_domain": true },
-    { "pattern": "www.has-a.tech", "custom_domain": true }
+    {
+      "pattern": "has-a.tech",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.has-a.tech",
+      "custom_domain": true
+    }
   ],
-  
   "kv_namespaces": [
     {
       "binding": "VERIFY",
       "id": "d382a4748d25475881159aa7c1381898"
     }
   ],
-  
   "vars": {
     "SITE_URL": "https://has-a.tech",
     "EMAIL_FROM": "has-a.tech <verify@has-a.tech>",
@@ -29,4 +34,3 @@
   // Secrets (set with `npx wrangler secret put NAME`, never put them here):
   //   GITHUB_CLIENT_SECRET, SESSION_SECRET, HMAC_SECRET, RESEND_API_KEY, STATUS_API_KEY
 }
-
