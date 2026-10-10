@@ -1,0 +1,10 @@
+[
+  "about", "abuse", "account", "accounts", "admin", "administrator", "api", "app", "apps",
+  "assets", "auth", "autoconfig", "autodiscover", "beta", "billing", "blog", "cdn",
+  "contact", "dashboard", "dev", "dns", "docs", "email", "ftp", "git", "github",
+  "has-a", "has-a-tech", "hasatech", "help", "hostmaster", "imap", "info", "isatap",
+  "legal", "localhost", "login", "mail", "moderator", "mod", "mx", "news", "ns", "ns1",
+  "ns2", "ns3", "ns4", "official", "owner", "pay", "pop", "pop3", "postmaster", "privacy",
+  "register", "root", "security", "signup", "smtp", "staff", "staging", "static",
+  "status", "support", "team", "terms", "test", "webmail", "webmaster", "wpad", "www"
+]

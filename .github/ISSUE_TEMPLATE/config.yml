@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Private abuse report
+    url: mailto:abuse@has-a.tech
+    about: Email us about abuse that shouldn't be discussed in public.

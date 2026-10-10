@@ -1,0 +1,9 @@
+{
+  "domain": "has-a.tech",
+  "maxDomainsPerUser": 1,
+  "minAccountAgeDays": 30,
+  "minNameLength": 2,
+  "maxFileBytes": 10000,
+  "descriptionMinLength": 10,
+  "descriptionMaxLength": 300
+}

@@ -1,0 +1,14 @@
+{
+  "_comment": "Used to catch likely phishing names. 'substrings' match anywhere in a name; 'words' match a whole hyphen-separated part (so 'bank' blocks 'my-bank' but not 'bankole'). Maintainers can merge exceptions by hand.",
+  "substrings": [
+    "paypal", "appleid", "icloud", "microsoft", "office365", "outlook", "gmail",
+    "netflix", "facebook", "instagram", "whatsapp", "binance", "coinbase",
+    "metamask", "steamcommunity", "walletconnect", "trustwallet", "ledgerlive"
+  ],
+  "words": [
+    "login", "signin", "logon", "verify", "verification", "password", "wallet",
+    "bank", "banking", "secure", "security", "account", "unlock", "recovery",
+    "airdrop", "giveaway", "billing", "invoice", "refund", "support",
+    "google", "amazon", "apple", "official"
+  ]
+}

@@ -1,0 +1,38 @@
+name: Report abuse
+description: Report a has-a.tech name used for phishing, malware, scams or other abuse.
+title: "Abuse report: NAME.has-a.tech"
+labels: ["report-abuse"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping keep has-a.tech safe.
+        **This issue is public.** For anything private or sensitive, email **abuse@has-a.tech** instead.
+  - type: input
+    id: name
+    attributes:
+      label: Which name?
+      placeholder: example.has-a.tech
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What kind of abuse?
+      options:
+        - Phishing or scam
+        - Malware
+        - Impersonation
+        - Spam
+        - Illegal content
+        - Harassment or hate
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details and evidence
+      description: What did you see, and where? Screenshots or URLs help. Please don't visit pages you believe are dangerous.
+    validations:
+      required: true

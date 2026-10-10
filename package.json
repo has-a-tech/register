@@ -1,0 +1,11 @@
+{
+  "name": "has-a-tech-register",
+  "private": true,
+  "description": "Free yourname.has-a.tech subdomains",
+  "scripts": {
+    "validate": "node scripts/validate.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

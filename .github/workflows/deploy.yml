@@ -1,0 +1,55 @@
+name: Deploy DNS
+
+# Publishes domains/ to Cloudflare whenever main changes.
+# Needs the repository secret CLOUDFLARE_API_TOKEN (Edit zone DNS, has-a.tech only).
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "domains/**"
+      - "dnsconfig.js"
+      - "creds.json"
+      - "util/**"
+      - "scripts/**"
+      - ".github/workflows/deploy.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-dns
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate every domain file
+        run: node scripts/validate.js
+
+      - name: Install DNSControl
+        uses: gacts/install-dnscontrol@v1
+        with:
+          version: 4.14.0
+
+      - name: Check config
+        run: dnscontrol check
+
+      - name: Preview changes
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: dnscontrol preview
+
+      - name: Push changes
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: dnscontrol push

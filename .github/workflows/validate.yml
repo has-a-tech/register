@@ -1,0 +1,48 @@
+name: Validate
+
+# Runs on every pull request. Uses pull_request_target so the checks come from
+# the trusted main branch: the pull request's files are only read as JSON data,
+# never executed. Do NOT add a step that runs code from the pull request.
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out main (trusted code only)
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Fetch the pull request as data
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: git fetch --no-tags origin "refs/pull/${PR_NUMBER}/head:pr-head"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Check the request
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_REF: pr-head
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          AUTHOR_ASSOCIATION: ${{ github.event.pull_request.author_association }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/check-pr.js
