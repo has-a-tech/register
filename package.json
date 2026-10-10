@@ -1,9 +1,14 @@
 {
-  "name": "has-a-tech-register",
+  "name": "has-a-tech-website",
   "private": true,
-  "description": "Free yourname.has-a.tech subdomains",
+  "type": "module",
   "scripts": {
-    "validate": "node scripts/validate.js"
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "node --test test/*.test.js"
+  },
+  "devDependencies": {
+    "wrangler": "^4"
   },
   "engines": {
     "node": ">=20"
