@@ -6,6 +6,8 @@ has-a.tech ("the service") gives out free subdomains of `has-a.tech`. By registe
 
 ## 1. Who can register
 
+- has-a.tech is for **students aged 13 or older** at a high school, college or university.
+- You must verify that you're a student at [has-a.tech/verify](https://has-a.tech/verify), signed in with the GitHub account you register with.
 - You need a GitHub account that is at least 30 days old.
 - One top-level name per person. Nested names under your own name (like `blog.yourname`) are fine.
 - Creating extra accounts to get more names isn't allowed and can lead to all of your names being removed.
@@ -17,7 +19,7 @@ has-a.tech ("the service") gives out free subdomains of `has-a.tech`. By registe
 - Impersonating a person, company, brand, school, or government
 - Spam, including sending email or links in bulk
 - Illegal content, or content that facilitates illegal activity
-- Sexual content involving minors, or any non-consensual intimate content
+- Sexual or adult content of any kind
 - Harassment, threats, or hate directed at people or groups
 - Reselling, renting out, or "parking" names, or holding them without a real site
 
@@ -33,8 +35,8 @@ Maintainers can remove or change any name at any time, with or without notice, e
 
 ## 5. Your information
 
-- Everything in your domain file (including your GitHub username and any email you add) is **public**.
-- We use the contact details you give us only to run the service, such as contacting you about your name.
+- Everything in your domain file, including your GitHub username, is **public**. Don't put personal information in it.
+- Student verification happens privately. We don't store your email address. See the [privacy policy](https://has-a.tech/privacy) for exactly what we keep.
 
 ## 6. No guarantees
 

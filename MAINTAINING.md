@@ -12,7 +12,9 @@ Pull request ──► Validate workflow ──► Maintainer review ──► M
 - **`domains/`**: one JSON file per name. This folder is the single source of truth.
 - **`.github/workflows/validate.yml`**: checks every pull request. It runs the scripts from `main` and reads the pull request's files only as data, so a pull request can't change the rules it's checked against.
 - **`.github/workflows/deploy.yml`**: on every merge, validates all files again, then DNSControl makes Cloudflare match `domains/` exactly.
-- **`dnsconfig.js`**: turns the JSON files into DNS records. It never touches `@` (the homepage and email records), `www`, `_dmarc` or `*._domainkey`.
+- **`dnsconfig.js`**: turns the JSON files into DNS records. It never touches `@` and `www` (the website), `send` (outgoing email), `_dmarc` or `*._domainkey`.
+- **Student verification** lives in [has-a-tech/website](https://github.com/has-a-tech/website). For each new name, the bot asks `https://has-a.tech/api/status/<username>` whether the author is a verified student, using the `VERIFY_API_KEY` secret.
+- **Site check:** after the rules pass, the bot loads the target website and lists warning signs for you (offline, empty, password fields, scam phrases). These are hints, not verdicts.
 - **`util/`**: the settings (`config.json`), reserved names, and blocked phishing words.
 
 ## One-time setup
@@ -26,13 +28,16 @@ Pull request ──► Validate workflow ──► Maintainer review ──► M
    - Block force pushes
 4. **Actions permissions:** **Settings → Actions → General**: allow GitHub Actions to run.
 5. **Run the first deploy:** **Actions → Deploy DNS → Run workflow**. Check the "Preview changes" step to see what it created.
-6. **Homepage:** in the Cloudflare dashboard, add your own records for `has-a.tech` and `www` (for example pointing at an Azure Static Web App or Cloudflare Pages). The automation leaves these alone.
+6. **Website and verification:** set up [has-a-tech/website](https://github.com/has-a-tech/website) by following its `SETUP.md`. It serves `has-a.tech` and `www`, which the automation leaves alone.
+7. **Connect verification:** add a repository secret `VERIFY_API_KEY` with the same value as the website's `STATUS_API_KEY`. Without it, every new request fails with "Couldn't check student verification".
 
 ## Reviewing a pull request
 
-The automatic check covers the format, ownership, limits and blocked words. You check what a robot can't:
+The automatic check covers the format, ownership, student verification, account age, limits and blocked words. You check what a robot can't:
 
+- [ ] Read the bot's comment, especially "Things the reviewer will look at".
 - [ ] Open the target website. Is it real, online, and not a placeholder?
+- [ ] Is it appropriate for a service used by teenagers?
 - [ ] Does it match the description?
 - [ ] Is it anything from the banned list in the Terms (phishing, impersonation, scams, etc.)?
 - [ ] Does the name itself look like an attempt to impersonate someone or something?

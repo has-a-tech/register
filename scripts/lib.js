@@ -14,13 +14,12 @@ const reserved = new Set(require("../util/reserved.json"));
 const blocked = require("../util/blocked-words.json");
 
 const ALLOWED_KEYS = ["description", "owner", "records", "proxied"];
-const OWNER_KEYS = ["username", "email"];
+const OWNER_KEYS = ["username"];
 const RECORD_TYPES = ["A", "AAAA", "CNAME", "TXT"];
 
 const LABEL_RE = /^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
 const UNDERSCORE_LABEL_RE = /^_[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
 const GITHUB_USER_RE = /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i;
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const HOSTNAME_RE = /^(?=.{1,253}$)(?:(?!-)[a-z0-9_-]{1,63}(?<!-)\.)+[a-z][a-z0-9-]{0,62}$/i;
 
 // ---------- helpers ----------
@@ -123,13 +122,14 @@ function validateData(name, data) {
     errors.push('"owner" is required, e.g. { "username": "your-github-username" }.');
   } else {
     for (const key of Object.keys(o)) {
-      if (!OWNER_KEYS.includes(key)) errors.push(`Unknown field "owner.${key}". Allowed: ${OWNER_KEYS.join(", ")}.`);
+      if (key === "email") {
+        errors.push('Remove "owner.email": this file is public. Your school email is checked privately at https://has-a.tech/verify instead.');
+      } else if (!OWNER_KEYS.includes(key)) {
+        errors.push(`Unknown field "owner.${key}". Allowed: ${OWNER_KEYS.join(", ")}.`);
+      }
     }
     if (typeof o.username !== "string" || !GITHUB_USER_RE.test(o.username)) {
       errors.push('"owner.username" must be your GitHub username.');
-    }
-    if (o.email !== undefined && (typeof o.email !== "string" || !EMAIL_RE.test(o.email))) {
-      errors.push('"owner.email" is optional, but if present it must be a valid email address.');
     }
   }
 

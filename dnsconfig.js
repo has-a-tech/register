@@ -41,9 +41,10 @@ for (var i = 0; i < files.length; i++) {
 D(DOMAIN, REG_NONE, DnsProvider(DSP_CLOUDFLARE),
   // Records managed by hand in the Cloudflare dashboard. DNSControl will never
   // create, change or delete these, so your homepage and email keep working.
-  IGNORE("@"),             // homepage + Email Routing MX/SPF records
-  IGNORE("www"),           // homepage
+  IGNORE("@"),             // website (Cloudflare Worker) + Email Routing MX/SPF records
+  IGNORE("www"),           // website
+  IGNORE("send"),          // Resend: outgoing verification email (MX + SPF)
   IGNORE("_dmarc"),        // email policy
-  IGNORE("*._domainkey"),  // Email Routing DKIM key
+  IGNORE("*._domainkey"),  // Email Routing and Resend DKIM keys
   records
 );
