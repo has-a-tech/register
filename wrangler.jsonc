@@ -29,7 +29,7 @@
     "SITE_URL": "https://has-a.tech",
     "EMAIL_FROM": "has-a.tech <verify@has-a.tech>",
     // Replace with your GitHub OAuth app's Client ID (not secret).
-    "GITHUB_CLIENT_ID": "c90e708b88981ed6becb6dff84dcd484b96efdd7"
+    "GITHUB_CLIENT_ID": "Ov23liQNpb3irJQomhkk"
   }
   // Secrets (set with `npx wrangler secret put NAME`, never put them here):
   //   GITHUB_CLIENT_SECRET, SESSION_SECRET, HMAC_SECRET, RESEND_API_KEY, STATUS_API_KEY
