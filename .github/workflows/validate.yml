@@ -11,6 +11,7 @@ on:
 
 permissions:
   contents: read
+  pull-requests: write # to comment the result; no pull request code is ever run
 
 concurrency:
   group: validate-${{ github.event.pull_request.number }}
@@ -45,4 +46,7 @@ jobs:
           PR_AUTHOR: ${{ github.event.pull_request.user.login }}
           AUTHOR_ASSOCIATION: ${{ github.event.pull_request.author_association }}
           GITHUB_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          VERIFY_API_URL: https://has-a.tech
+          VERIFY_API_KEY: ${{ secrets.VERIFY_API_KEY }}
         run: node scripts/check-pr.js
