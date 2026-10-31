@@ -1,0 +1,9 @@
+{
+  "description": "NYC 311 complaint explorer, hosted on Azure Static Web Apps.",
+  "owner": {
+    "username": "bharatpatel7"
+  },
+  "records": {
+    "CNAME": "mango-bush-01127470f.1.azurestaticapps.net"
+  }
+}
